@@ -22,22 +22,10 @@ export class AppComponent {
     this._isNewEmailFormOpen = !this.isNewEmailFormOpen;
   }
 
-  handleNewEmail(formEmail: NgForm) {
+  handleNewEmail(formEmail: NgForm) {    
     this.emailList.push(this.email);
     this.email = new Email();
     formEmail.resetForm();
     this.toggleNewEmailForm();
   }
-
-  /*handleNewEmail(event: Event) {
-    event.preventDefault();
-    this.emailList.push(this.email);
-    this.email = {
-      destinatario: '',
-      assunto: '',
-      conteudo: ''
-    }
-  }*/
-
-  
 }
