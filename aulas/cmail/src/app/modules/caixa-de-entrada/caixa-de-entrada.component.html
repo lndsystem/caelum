@@ -42,7 +42,7 @@
               <div class="cmailInputForm">
                 <div class="mdl-textfield mdl-textfield--floating-label" [ngClass]="{' is-invalid': destinatario.invalid && destinatario.touched}">
                   <input required type="email" name="para" id="para" placeholder=" " class="mdl-textfield__input" 
-                    #destinatario="ngModel" [(ngModel)]="email.destinatario" [pattern]="regexEmail">
+                    email #destinatario="ngModel" [(ngModel)]="email.destinatario" [pattern]="regexEmail">
                   <span class="mdl-textfield__error">Informar um email é obrigatório!</span>
                   <label class="mdl-textfield__label" for="para">Para: </label>
                   <span class="mdl-textfield__formline"></span>
@@ -74,7 +74,7 @@
               <!-- ./Form Fields -->
             </div>
             <div class="mdl-card__actions mdl-card--border">
-              <button class="mdl-button" [disabled]="formEmail.invalid">Enviar</button>
+              <button class="mdl-button">Enviar</button>
             </div>
             <div class="newEmail__topMenu mdl-card__menu">
               <button type="button" class="mdl-button mdl-button--icon" (click)="toggleNewEmailForm()">
