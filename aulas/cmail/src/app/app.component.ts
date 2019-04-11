@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { Email } from './models/email';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<router-outlet><router-outlet>'
 })
 export class AppComponent {
+<<<<<<< HEAD
   readonly regexEmail = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
   private _isNewEmailFormOpen = false;
   
@@ -28,4 +26,7 @@ export class AppComponent {
     formEmail.resetForm();
     this.toggleNewEmailForm();
   }
+=======
+  
+>>>>>>> branch 'master' of https://github.com/lndsystem/caelum.git
 }
