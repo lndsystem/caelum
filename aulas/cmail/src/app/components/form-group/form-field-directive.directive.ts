@@ -12,7 +12,11 @@ export class FormFieldDirective {
     const campo:HTMLInputElement = this.elemento.nativeElement;
     campo.classList.add('mdl-textfield__input');
     campo.placeholder=' ';
-    campo.id = campo.name;
+    if(campo.name){
+      campo.id = campo.name;
+    }else{
+      throw new Error('O atributo name deve ser informado!')
+    }
 
   }
 }
