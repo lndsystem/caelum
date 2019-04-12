@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 @Component({
@@ -53,20 +53,17 @@ export class CadastroComponent implements OnInit {
   validarTodosCampos(form: FormGroup) {
     for (let propName in form.value) {
       if (form.get(propName).invalid) {
-        console.log(propName);
         form.get(propName).markAsTouched();
       }
     }
   }
 
   validaAvatar(controle: FormControl) {
-    let v = this.httpClient.head(controle.value)
+    return this.httpClient.head(controle.value, { observe: 'response' })
       .pipe(
-        map((resposta: HttpResponseBase) => resposta.ok)
+        map((resposta: HttpResponseBase) => { return resposta.ok ? null : { urlInvalida: true } }),
+        catchError((error) => { return [{ urlInvalida: true }] })
       );
-    console.log(v);
-    return v.;
-
     //return new Observable<Object>();
     //return new Promise(resolve => resolve);
   }

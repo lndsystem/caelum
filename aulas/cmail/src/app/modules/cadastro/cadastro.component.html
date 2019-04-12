@@ -5,9 +5,9 @@
       <div class="mdl-grid">
         <form [formGroup]="formCadastro" (ngSubmit)=handleCadastroUsuario()>
 
-          <cmail-form-group [ctrl]="formCadastro" ident="nome" message="Informar um nome é obrigatório!">
+          <cmail-form-group [ctrl]="formCadastro" ident="nome" [messages]="{required: 'Informar um nome é obrigatório!', minlength: 'O nome deve conter ao menos 2 caracteres'}" message="Informar um nome é obrigatório!">
             <input formControlName="nome" required type="text" name="nome" cmailFormField/>
-            <span *ngIf="nome.getError('minlength')" class="mdl-textfield__error">O nome deve conter ao menos 2 caracteres</span>    
+            <!-- <span *ngIf="nome.getError('minlength')" class="mdl-textfield__error">O nome deve conter ao menos 2 caracteres</span>     -->
           </cmail-form-group>
           <cmail-form-group [ctrl]="formCadastro" ident="username" message="Criar um username é obrigatório!">
             <input formControlName="username" required type="text" name="username" cmailFormField/>
