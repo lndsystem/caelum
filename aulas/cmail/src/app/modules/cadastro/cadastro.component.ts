@@ -13,7 +13,7 @@ export class CadastroComponent implements OnInit {
   nome = new FormControl('', [Validators.required, Validators.minLength(2)]);
   telefone = new FormControl('', [Validators.required, Validators.pattern('\\d{4,5}\\-\\d{4}'), Validators.minLength(8), Validators.maxLength(10)])
 
-  avatar = new FormControl('', null, this.validaAvatar.bind(this));
+  avatar = new FormControl('', Validators.required, this.validaAvatar.bind(this));
 
   formCadastro = new FormGroup({
     nome: this.nome,
@@ -52,15 +52,20 @@ export class CadastroComponent implements OnInit {
 
   validarTodosCampos(form: FormGroup) {
     for (let propName in form.value) {
-      form.get(propName).markAsTouched();
+      if (form.get(propName).invalid) {
+        console.log(propName);
+        form.get(propName).markAsTouched();
+      }
     }
   }
 
-  validaAvatar(controle: FormControl) { 
-    return this.httpClient.head(controle.value)
-                    .pipe(
-                      map((resposta: HttpResponseBase) => {console.log(resposta)})
-                    );
+  validaAvatar(controle: FormControl) {
+    let v = this.httpClient.head(controle.value)
+      .pipe(
+        map((resposta: HttpResponseBase) => resposta.ok)
+      );
+    console.log(v);
+    return v.;
 
     //return new Observable<Object>();
     //return new Promise(resolve => resolve);
