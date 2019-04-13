@@ -15,12 +15,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.0.0",
     "@types/joi": "^13.4.5",
     "better-validator": "^2.1.8",
@@ -45,6 +45,6 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "nodemon": "^1.18.4",
-    "nyc": "^13.0.1"
+    "nyc": "^13.3.0"
   }
 }

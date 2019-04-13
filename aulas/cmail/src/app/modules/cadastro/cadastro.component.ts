@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { User } from "src/app/models/dto/input/user";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -12,7 +14,6 @@ export class CadastroComponent implements OnInit {
 
   nome = new FormControl('', [Validators.required, Validators.minLength(2)]);
   telefone = new FormControl('', [Validators.required, Validators.pattern('\\d{4,5}\\-\\d{4}'), Validators.minLength(8), Validators.maxLength(10)])
-
   avatar = new FormControl('', Validators.required, this.validaAvatar.bind(this));
 
   formCadastro = new FormGroup({
@@ -23,7 +24,7 @@ export class CadastroComponent implements OnInit {
     avatar: this.avatar
   });
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private route: Router) { }
 
   ngOnInit() {
   }
@@ -41,7 +42,38 @@ export class CadastroComponent implements OnInit {
       this.validarTodosCampos(this.formCadastro);
       return;
     }
-    this.formCadastro.reset();
+
+    const userData = new User(this.formCadastro.value);
+    const uname = this.formCadastro.get('username').value;
+
+    //Api SpringBoot
+    this.httpClient.post('http://localhost:8080/users', this.formCadastro.value).subscribe();
+
+    this.httpClient.post('http://localhost:3200/users', userData).subscribe(
+      (response) =>{
+        console.log('Cadastro com sucesso! ' + this.formCadastro.get('username').value);
+        //this.formCadastro.reset();
+
+        //setTimeout(()=>{
+          this.route.navigate(['login', this.formCadastro.get('username').value]);
+        //}, 1000);
+      }, erro => console.log(erro)
+      , () => console.log('complete')
+    );
+
+    /*
+      subscribe retorna 3 resposta
+      subscribe((SUCESSO) => 
+        {
+          return SUCESSO
+        }, (ERROR) => {
+          return ERROR
+        }, () => { //se deu sucesso executa o complete
+
+        }
+      )
+    */
+    //this.formCadastro.reset();
   }
 
   // validar(campo: string){

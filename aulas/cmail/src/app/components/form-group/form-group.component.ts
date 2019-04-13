@@ -29,10 +29,10 @@ export class FormGroupComponent implements OnInit {
     return this.controle.get(this.idCampo).getError('required');
   }
 
-  getMessage(): string {
-    for (let erro in this.mensagens)
-      if (this.formControl.getError(erro))
-        return this.mensagens[erro];
-    return 'Campo obrigatório e/ou inválido.';
-  }
+  // getMessage(): string {
+  //   for (let erro in this.mensagens)
+  //     if (this.formControl.getError(erro))
+  //       return this.mensagens[erro];
+  //   return 'Campo obrigatório e/ou inválido.';
+  // }
 }
