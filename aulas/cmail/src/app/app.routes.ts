@@ -1,37 +1,23 @@
 import { Routes, RouterModule } from "@angular/router";
-import { CadastroComponent } from './modules/cadastro/cadastro.component';
-import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
-import { LoginComponent } from './modules/login/login.component';
 import { NgModule } from '@angular/core';
 
-const listaDeRotas: Routes = [
-    //Carregando tudo
-    /*{ path: '', component: LoginComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'login/:username', component: LoginComponent },
-    { path: 'cadastro', component: CadastroComponent },
-    { path: 'inbox', component: CaixaDeEntradaComponent },
-    { path: '**', redirectTo: 'login'},*/
-
-    //Carregando por demanda
-    { path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule'},
-    { path: 'cadastro', loadChildren: 'src/app/modules/cadastro.module#CadastroModule' },
-    { path: '', loadChildren: 'src/app/modules/login.module#LoginModule' },
-    { path: 'login', loadChildren: 'src/app/modules/login.module#LoginModule'},
-    { path: 'login/:username', loadChildren: 'src/app/modules/login.module#LoginModule' },
-    { path: '**', redirectTo: 'login'},
-];
-
-//Antigo, fuciona para tudos
-//export const ModuloRoteamento = RouterModule.forRoot(listaDeRotas);
-
+const listaDeRotas:Routes = [
+    {path: '', loadChildren: 'src/app/modules/login/login.module#LoginModule'},
+    {path: 'login', loadChildren: 'src/app/modules/login/login.module#LoginModule'},
+    
+    {path: 'cadastro', loadChildren: 'src/app/modules/cadastro/cadastro.module#CadastroModule'},
+    {path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule'},
+    {path: '**', redirectTo: 'login'}
+]
 
 @NgModule({
-    imports:[
+    imports: [
         RouterModule.forRoot(listaDeRotas)
     ],
-    exports:[
-       RouterModule 
+    exports: [
+        RouterModule
     ]
 })
-export class ModuloRoteamento{}
+export class ModuloRoteamento {
+
+}

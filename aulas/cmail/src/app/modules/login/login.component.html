@@ -1,8 +1,42 @@
+<div class="mdl-layout mdl-js-layout">
+<main class="mdl-layout__content">
+<div class="page-content">
+  <div class="mdl-grid">
+    
+    <article class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <header class="mdl-card__title">
+        <h1 class="mdl-card__title-text">Bem vindos/as ao CMail!</h1>
+      </header>
 
-<h1>Seja bem vindo!</h1>
+      <section class="mdl-textfield is-invalid">
+        <p *ngIf="mensagemErro.message" class="mdl-textfield__error">
+          {{mensagemErro.message}}
+        </p>          
+      </section>
 
-  <p *ngIf="username">
-    login works! <strong>{{username}}</strong>
-  </p>
-<a routerLink="/inbox">Voltar</a>
+      <form #formLogin="ngForm" (ngSubmit)="handleLogin(formLogin)" autocomplete="off" class="mdl-card__supporting-text">
+       
+        <!-- aqui os campos do formulário -->
+        <cmail-form-group ident="email" [ctrlNg]="email">
+          <input type="email" name="email" [(ngModel)]="login.email" #email="ngModel" cmailFormField required autofocus/>          
+        </cmail-form-group>
 
+        <cmail-form-group ident="password" [ctrlNg]="password">
+          <input type="password" name="password" [(ngModel)]="login.password" #password="ngModel" cmailFormField required autofocus/>          
+        </cmail-form-group>
+
+        <div class="mdl-card__actions mdl-card--border">
+          <a [routerLink]="['..','cadastro']" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Primeiro login? Cadastre-se!
+          </a>
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent entrar">
+            Entrar
+          </button>
+        </div>
+      </form>
+
+    </article>
+  </div>
+</div>
+</main>
+</div>
