@@ -7,7 +7,12 @@ import { EmailDTO } from 'src/app/models/dto/output/emailDto';
 @Component({
   selector: 'cmail-caixa-de-entrada',
   templateUrl: './caixa-de-entrada.component.html',
-  styles: []
+  styles: [
+    `ul, li {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }`]
 })
 export class CaixaDeEntradaComponent implements OnInit {
   readonly regexEmail = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
@@ -19,6 +24,9 @@ export class CaixaDeEntradaComponent implements OnInit {
   constructor(private servico: EmailService) { }
 
   ngOnInit() {
+    this.servico.listar().subscribe(lista => {
+      this.emailList = lista;
+    });
   }
 
   get isNewEmailFormOpen() {
@@ -37,10 +45,8 @@ export class CaixaDeEntradaComponent implements OnInit {
     }
 
     this.servico.enviar(this.email).subscribe((email: any) => {
-      console.log(email);
-
       email = new EmailDTO(email.to, email.subject, email.content, email.created_at);
-      this.emailList.push(email);
+      this.emailList.unshift(email);
       this.email = new Email();
       formEmail.resetForm();
       this.toggleNewEmailForm();

@@ -4,16 +4,16 @@
     <div class="page-content">
 
       <div class="mdl-grid">
-        
-        <div *ngFor="let email of emailList">
-          <cmail-list-item
-            [destinatario]="email.destinatario"
-            [assunto]="email.assunto"
-            [introducaoDoConteudo]="email.conteudo"
-            [dataDeEnvio]="email.dataDeEnvio"
-          ></cmail-list-item>
-        </div>
-
+        <ul style="width: 100%">
+          <li *ngFor="let email of emailList">
+            <cmail-list-item
+              [destinatario]="email.destinatario"
+              [assunto]="email.assunto"
+              [introducaoDoConteudo]="email.conteudo"
+              [dataDeEnvio]="email.criado"
+            ></cmail-list-item>
+          </li>
+        </ul>
         <!-- Floating Multiline Textfield -->
         <button class="globalFab tooltip btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
           role="tooltip" aria-label="Criar novo email" (click)="toggleNewEmailForm()">
