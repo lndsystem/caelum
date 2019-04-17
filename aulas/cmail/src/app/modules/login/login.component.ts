@@ -11,6 +11,8 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
+  // username: string;
+
   login = {
     email: '',
     password: ''
@@ -23,11 +25,15 @@ export class LoginComponent implements OnInit {
   constructor(private rotaAtivada: ActivatedRoute, private loginService: LoginService, private route: Router) { }
 
   ngOnInit() {
-    //this.username = this.rotaAtivada.snapshot.params.username;
+    this.login.email = this.rotaAtivada.snapshot.params.username;
 
     //console.log(this.rotaAtivada.snapshot.params.username);
     //console.log('-')
     //this.rotaAtivada.params.subscribe((parans) => console.log(parans.username));
+    // if (this.username) {
+    //   let email = this.username + '@cmail.com.br';
+    //   this.login.email = email;
+    // }
   }
 
   handleLogin(formLogin: NgForm) {

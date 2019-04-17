@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from '../../models/email';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
+import { EmailService } from 'src/app/services/email.service';
+import { EmailDTO } from 'src/app/models/dto/output/emailDto';
 
 @Component({
   selector: 'cmail-caixa-de-entrada',
@@ -14,7 +16,7 @@ export class CaixaDeEntradaComponent implements OnInit {
   email = new Email();
   emailList = [];
 
-  constructor() { }
+  constructor(private servico: EmailService) { }
 
   ngOnInit() {
   }
@@ -27,17 +29,26 @@ export class CaixaDeEntradaComponent implements OnInit {
   }
 
   handleNewEmail(formEmail: NgForm) {
-    
-    if(formEmail.invalid){
+
+    if (formEmail.invalid) {
       formEmail.control.get('para').markAsTouched();
       formEmail.control.get('assunto').markAsTouched();
       return;
     }
 
-    this.emailList.push(this.email);
-    this.email = new Email();
-    formEmail.resetForm();
-    this.toggleNewEmailForm();
+    this.servico.enviar(this.email).subscribe((email: any) => {
+      console.log(email);
+
+      email = new EmailDTO(email.to, email.subject, email.content, email.created_at);
+      this.emailList.push(email);
+      this.email = new Email();
+      formEmail.resetForm();
+      this.toggleNewEmailForm();
+    },
+      erro => console.log(erro)
+    );
+
+
   }
 
 }

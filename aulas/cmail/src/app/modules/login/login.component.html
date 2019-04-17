@@ -15,15 +15,26 @@
       </section>
 
       <form #formLogin="ngForm" (ngSubmit)="handleLogin(formLogin)" autocomplete="off" class="mdl-card__supporting-text">
-       
         <!-- aqui os campos do formulário -->
-        <cmail-form-group ident="email" [ctrlNg]="email">
-          <input type="email" name="email" [(ngModel)]="login.email" #email="ngModel" cmailFormField required autofocus/>          
-        </cmail-form-group>
+        <div *ngIf="login.email">
+          <cmail-form-group ident="email" [ctrlNg]="email">
+            <input type="email" name="email" [(ngModel)]="login.email" #email="ngModel" value="{{username}}" cmailFormField required />          
+          </cmail-form-group>
 
-        <cmail-form-group ident="password" [ctrlNg]="password">
-          <input type="password" name="password" [(ngModel)]="login.password" #password="ngModel" cmailFormField required autofocus/>          
-        </cmail-form-group>
+          <cmail-form-group ident="password" [ctrlNg]="password">
+            <input type="password" name="password" [(ngModel)]="login.password" #password="ngModel" cmailFormField required autofocus/>          
+          </cmail-form-group>
+        </div>
+
+        <div *ngIf="!login.email">
+            <cmail-form-group ident="email" [ctrlNg]="email">
+              <input type="email" name="email" [(ngModel)]="login.email" #email="ngModel" value="{{username}}" cmailFormField required autofocus/>          
+            </cmail-form-group>
+  
+            <cmail-form-group ident="password" [ctrlNg]="password">
+              <input type="password" name="password" [(ngModel)]="login.password" #password="ngModel" cmailFormField required/>          
+            </cmail-form-group>
+          </div>
 
         <div class="mdl-card__actions mdl-card--border">
           <a [routerLink]="['..','cadastro']" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">

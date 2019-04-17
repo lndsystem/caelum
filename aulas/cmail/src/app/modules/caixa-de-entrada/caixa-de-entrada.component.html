@@ -4,24 +4,15 @@
     <div class="page-content">
 
       <div class="mdl-grid">
-        <table>
-          <thead>
-            <tr style="border: 1px #ccc solid">
-              <th style="width: 50px"><input type="checkbox"/></th>
-              <th style="width: 300px">Remetente</th>
-              <th style="width: 300px">Assunto</th>
-              <th style="width: 500px">Mensagem</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let email of emailList" style="border: 1px #ccc solid">
-              <td style="text-align: center;"><input type="checkbox" [checked]="email.checked"/></td>
-              <td style="padding-left: 8px">{{email.destinatario}}</td>
-              <td style="padding-left: 8px">{{email.assunto}}</td>
-              <td style="padding-left: 8px">{{email.conteudo}}</td>
-            </tr>
-          </tbody>
-        </table>              
+        
+        <div *ngFor="let email of emailList">
+          <cmail-list-item
+            [destinatario]="email.destinatario"
+            [assunto]="email.assunto"
+            [introducaoDoConteudo]="email.conteudo"
+            [dataDeEnvio]="email.dataDeEnvio"
+          ></cmail-list-item>
+        </div>
 
         <!-- Floating Multiline Textfield -->
         <button class="globalFab tooltip btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored"

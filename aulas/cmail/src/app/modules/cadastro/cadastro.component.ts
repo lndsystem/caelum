@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { User } from "src/app/models/dto/input/user";
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -24,7 +25,7 @@ export class CadastroComponent implements OnInit {
     avatar: this.avatar
   });
 
-  constructor(private httpClient: HttpClient, private route: Router) { }
+  constructor(private httpClient: HttpClient, private servico: UserService, private route: Router) { }
 
   ngOnInit() {
   }
@@ -43,23 +44,28 @@ export class CadastroComponent implements OnInit {
       return;
     }
 
-    const userData = new User(this.formCadastro.value);
-    const uname = this.formCadastro.get('username').value;
+    //const userData = new User(this.formCadastro.value);
+    //const uname = this.formCadastro.get('username').value;
 
     //Api SpringBoot
-    this.httpClient.post('http://localhost:8080/users', this.formCadastro.value).subscribe();
+    //this.httpClient.post('http://localhost:8080/users', this.formCadastro.value).subscribe();
 
-    this.httpClient.post('http://localhost:3200/users', userData).subscribe(
-      (response) =>{
-        console.log('Cadastro com sucesso! ' + this.formCadastro.get('username').value);
-        //this.formCadastro.reset();
-
-        //setTimeout(()=>{
-          this.route.navigate(['login', this.formCadastro.get('username').value]);
-        //}, 1000);
-      }, erro => console.log(erro)
-      , () => console.log('complete')
+    this.servico.cadastro(this.formCadastro.value).subscribe(
+      (response:any) => this.route.navigate(['login/', response.email]),
+      erro => console.log(erro)
     );
+
+    // this.httpClient.post('http://localhost:3200/users', userData).subscribe(
+    //   (response) => {
+    //     //console.log('Cadastro com sucesso! ' + this.formCadastro.get('username').value);
+    //     //this.formCadastro.reset();
+
+    //     //setTimeout(()=>{
+    //     this.route.navigate(['login', this.formCadastro.get('username').value]);
+    //     //}, 1000);
+    //   }, erro => console.log(erro)
+    //   , () => console.log('complete')
+    // );
 
     /*
       subscribe retorna 3 resposta

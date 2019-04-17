@@ -2,7 +2,6 @@
   <button class="mdl-layout__drawer-button" (click)="toggleMenu()">
     <span class="material-icons"></span>
   </button>
-
   <div class="mdl-layout__header-row">
     <span class="headerGlobal__title mdl-layout-title">Título da página atual</span>
 
@@ -29,10 +28,10 @@
   </span>
 
   <header class="headerGlobal__userInfo">
-    <img src="http://placehold.it/48x48" class="headerGlobal__userInfoAvatar">
+    <img src="{{user.avatarUrl}}" class="headerGlobal__userInfoAvatar">
     <div class="headerGlobal__userInfoData">
-      <h5 class="headerGlobal__userInfoDataName">Pessoa de Tal</h5>
-      <span>pesso.al@cmail.br</span>
+      <h5 class="headerGlobal__userInfoDataName">{{user.name}}</h5>
+      <span>{{user.email}}</span>
       <div class="mdl-layout-spacer"></div>
     </div>
   </header>
@@ -47,7 +46,7 @@
     <a [routerLink]="['..','inbox']" class="mdl-navigation__link">
       <span class="material-icons">inbox</span> Caixa de Entrada
     </a>
-    <a [routerLink]="['..','logout']" class="mdl-navigation__link">
+    <a (click)="logout()" [routerLink]="['..','login']"  class="mdl-navigation__link">
       <span class="material-icons">logout</span> Logout
     </a>
   </nav>

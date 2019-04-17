@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { CaixaDeEntradaComponent } from './caixa-de-entrada.component';
 
 const rotasDoModulo: Routes = [
-  {path: '', component: CaixaDeEntradaComponent}
+  { path: '', component: CaixaDeEntradaComponent }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forChild(rotasDoModulo)
   ],
-  exports:[
+  exports: [
     RouterModule
   ]
 })
