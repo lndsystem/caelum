@@ -4,22 +4,31 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
+
 	private String nome;
+
+	@NotBlank(message = "Username not blank")
 	private String username;
+
+	@NotBlank(message = "Password not blank")
 	private String senha;
+
+	@NotBlank(message = "Phone not blank")
 	private String telefone;
 	private String avatar;
 
@@ -33,6 +42,7 @@ public class User {
 	public void insert() {
 		cadastro = LocalDateTime.now();
 		atualizacao = LocalDateTime.now();
+		senha = "123";
 	}
 
 	@PreUpdate
@@ -40,11 +50,11 @@ public class User {
 		atualizacao = LocalDateTime.now();
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -104,4 +114,34 @@ public class User {
 		this.atualizacao = atualizacao;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", nome=" + nome + ", username=" + username + ", senha=" + senha + ", telefone="
+				+ telefone + ", avatar=" + avatar + ", cadastro=" + cadastro + ", atualizacao=" + atualizacao + "]";
+	}
 }

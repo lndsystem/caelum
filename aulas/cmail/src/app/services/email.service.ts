@@ -28,16 +28,24 @@ export class EmailService {
       map(
         (response: any[]) => {
           return response.map(
-            emailApi =>{
+            emailApi => {
               return new EmailDTO(
-              emailApi.to,
-              emailApi.subject,
-              emailApi.content,
-              emailApi.created_at
-            )}
+                emailApi.to,
+                emailApi.subject,
+                //emailApi.content.replace(/(?:\r\n|\r|\n)/g, '<br />'),
+                emailApi.content,
+                emailApi.created_at,
+                emailApi.id
+              )
+            }
           )
         }
       )
     );
+  }
+
+  deletar(id) {
+    let security = JSON.parse(localStorage.getItem('cmail-security'));
+    return this.http.delete(`${this.url}/${id}`, { headers: new HttpHeaders({ 'Authorization': security.token }) });
   }
 }
