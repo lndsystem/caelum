@@ -6,9 +6,10 @@ import { SharedComponentsModule } from 'src/app/components/shared-components.mod
 import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
 import { CaixaDeEntradaComponent } from './caixa-de-entrada.component';
 import { ListItemComponent } from './list-item/list-item.component';
+import { FiltroPorAssuntoPipe } from './filtro-por-assunto.pipe';
 
 @NgModule({
-  declarations: [CaixaDeEntradaComponent, ListItemComponent],
+  declarations: [CaixaDeEntradaComponent, ListItemComponent, FiltroPorAssuntoPipe],
   imports: [
     CommonModule,
     SharedComponentsModule,

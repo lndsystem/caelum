@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { PageDataService } from '../../services/page.service';
 
 @Component({
   selector: 'cmail-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     message: ''
   }
 
-  constructor(private rotaAtivada: ActivatedRoute, private loginService: LoginService, private route: Router) { }
+  constructor(private rotaAtivada: ActivatedRoute, private loginService: LoginService, private route: Router,
+    private pageService: PageDataService) { }
 
   ngOnInit() {
     this.login.email = this.rotaAtivada.snapshot.params.username;
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
     //   let email = this.username + '@cmail.com.br';
     //   this.login.email = email;
     // }
+    this.pageService.definirTitulo('Login - CMail');
   }
 
   handleLogin(formLogin: NgForm) {

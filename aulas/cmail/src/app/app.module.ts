@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ModuloRoteamento } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
+import { LeituraDeEmailComponent } from './modules/leitura-de-email/leitura-de-email.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

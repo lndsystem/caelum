@@ -2,16 +2,17 @@
   <cmail-header></cmail-header>
   <main class="mdl-layout__content">
     <div class="page-content">
-
-      <div class="mdl-grid">
+      <div class="mdl-grid">        
         <ul>
-          <li *ngFor="let email of emailList">
+          <!-- <li *ngFor="let email of emailList | filtroPorAssunto:termoParaFiltro"> -->
+          <li *ngFor="let email of filtarEmails()"> 
             <cmail-list-item
               [destinatario]="email.destinatario"
               [assunto]="email.assunto"
               [introducaoDoConteudo]="email.conteudo"
               [dataDeEnvio]="email.criado"
               (eventoVaiRemover)="handleRemoveEmail($event, email.id)"
+              (click)="openEmail($event, email.id)"
             ></cmail-list-item>
           </li>
         </ul>

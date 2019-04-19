@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from '../../services/login.service';
+import { PageDataService } from '../../services/page.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
     selector: 'cmail-header',
@@ -11,7 +13,12 @@ import { LoginService } from '../../services/login.service';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(private loginService: LoginService) { }
+    constructor(private loginService: LoginService, private pageService: PageDataService, private headerService: HeaderService) {
+        this.pageService.titulo.subscribe(novoTitulo => this.tituloDaPagina = novoTitulo);
+    }
+
+    tituloDaPagina = 'CMail';
+    private _isMenuOpen = false;
 
     user = {
         email: 'pesso.al@cmail.br',
@@ -26,9 +33,6 @@ export class HeaderComponent implements OnInit {
         }
     }
 
-
-
-    private _isMenuOpen = false;
     get isMenuOpen() {
         return this._isMenuOpen;
     }
@@ -41,4 +45,7 @@ export class HeaderComponent implements OnInit {
         this.loginService.logout();
     }
 
+    handleBuscaChanges({ target }) {
+        this.headerService.atualizarTermoDeFiltro(target.value)
+    }
 }

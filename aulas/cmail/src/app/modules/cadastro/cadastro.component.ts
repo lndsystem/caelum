@@ -5,6 +5,7 @@ import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http
 import { User } from "src/app/models/dto/input/user";
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { PageDataService } from '../../services/page.service';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -25,9 +26,11 @@ export class CadastroComponent implements OnInit {
     avatar: this.avatar
   });
 
-  constructor(private httpClient: HttpClient, private servico: UserService, private route: Router) { }
+  constructor(private httpClient: HttpClient, private servico: UserService, private route: Router,
+    private pageService: PageDataService) { }
 
   ngOnInit() {
+    this.pageService.definirTitulo('Cadastro - CMail');
   }
 
   handleCadastroUsuario() {
